@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic validation
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <div style="display:flex; flex-direction:column;justify-content:center">
+    <div>
+      <h2>Form with Validations</h2>
+      <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
+        <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['firstName'].valid && complexForm.controls['firstName'].touched}">
+          <label>First Name:</label>
+          <input class="form-control" type="text" placeholder="John" [formControl]="complexForm.controls['firstName']">
+          <!-- The hasError method will tell us if a particular error exists -->
+          <div *ngIf="complexForm.controls['firstName'].hasError('required') && complexForm.controls['firstName'].touched" class="alert alert-danger">
+            You must include a first name.</div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['lastName'].valid && complexForm.controls['lastName'].touched}">
+          <label>Last Name</label>
+          <input class="form-control" type="text" placeholder="Doe" [formControl]="complexForm.controls['lastName']">
+          <!-- The hasError method can work with the built in validators but custom validators as well -->
+          <div *ngIf="complexForm.controls['lastName'].hasError('required') && complexForm.controls['lastName'].touched" class="alert alert-danger">
+            You must include a last name.</div>
+          <div *ngIf="complexForm.controls['lastName'].hasError('minlength') && complexForm.controls['lastName'].touched" class="alert alert-danger">
+            Your last name must be at least 5 characters long.</div>              
+          <div *ngIf="complexForm.controls['lastName'].hasError('maxlength') && complexForm.controls['lastName'].touched" class="alert alert-danger">
+            Your last name cannot exceed 10 characters.</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['email'].valid && complexForm.controls['email'].touched}">
+          <label>email</label>
+          <input class="form-control" type="email" placeholder="@gmail.com" [formControl]="complexForm.controls['email']">
+          <!-- The hasError method can work with the built in validators but custom validators as well -->
+         <div *ngIf="complexForm.controls['email'].hasError('required') && complexForm.controls['email'].touched" class="alert alert-danger">it is required
+            filed.
+         </div>
+         <div *ngIf="complexForm.controls['email'].hasError('email') && complexForm.controls['email'].touched" class="alert alert-danger">it is email type.
+       </div>
+        </div>
+        
+        <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['password'].valid && complexForm.controls['password'].touched}">
+          <label for="password">Password</label>
+          <input type="password" class="form-control"[formControl]="complexForm.controls['password']">
+
+          <div *ngIf="complexForm.controls['password'].hasError('required') && complexForm.controls['password'].touched" class="alert alert-danger">it is required
+              filed.
+           </div>
+              <div *ngIf="complexForm.controls['password'].hasError('minlength') && complexForm.controls['password'].touched" class="alert alert-danger">
+                Your last name must be at least 5 characters long.</div>              
+              <div *ngIf="complexForm.controls['password'].hasError('maxlength') && complexForm.controls['password'].touched" class="alert alert-danger">
+                Your last name cannot exceed 10 characters.</div>
+
+        </div>
+
+       
+        
+        <div class="form-group" [ngClass]="{'has-error':!complexForm.controls['confirmPassword'].valid && complexForm.controls['confirmPassword'].touched}">
+            <label for="password">confirm Password</label>
+            <input type="password" class="form-control"[formControl]="complexForm.controls['confirmPassword']">
+
+           
+               
+             <div class="alert alert-danger" *ngIf="complexForm.controls['confirmPassword'].hasError('MatchPassword')&& complexForm.controls['confirmPassword'].touched">
+               Password not match
+             
+
+          </div>
+          </div>
+
+
+
+     
+          <div class="form-group">
+
+          <label>Gender</label>
+          <div class="alert alert-danger" *ngIf="!complexForm.controls['gender'].valid && complexForm.controls['gender'].touched">You must select a gender.</div>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="gender" value="Male" [formControl]="complexForm.controls['gender']">
+            Male
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="gender" value="Female" [formControl]="complexForm.controls['gender']">
+            Female
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Activities</label>
+        </div>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="hiking" name="hiking" [formControl]="complexForm.controls['hiking']"> Hiking
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="swimming" name="swimming" [formControl]="complexForm.controls['swimming']"> Swimming
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" value="running" name="running" [formControl]="complexForm.controls['running']"> Running
+        </label>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!complexForm.valid">Submit</button>
+
+        </div>
+      </form>
+    </div>
+    
+  </div>
+</ion-content>
+
+
